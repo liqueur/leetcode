@@ -16,27 +16,27 @@ class Solution:
         :type n: int
         :rtype: int
         """
-        nums = [0 for i in range(1691)]
-        nums[1] = 1
-        i = 0
-        cnt = 0
-        while cnt < n:
-            i += 1
-            if nums[i] == 1:
-                if i * 2 < 1691:
-                    nums[i * 2] = 1
+        n2 = n3 = n5 = 0
+        i = 1
+        last = 1
+        ugly = [1]
 
-                if i * 3 < 1691:
-                    nums[i * 3] = 1
+        while i < n:
+            new = min(ugly[n2] * 2, ugly[n3] * 3, ugly[n5] * 5)
+            if new == ugly[n2] * 2:
+                n2 += 1
+            if new == ugly[n3] * 3:
+                n3 += 1
+            if new == ugly[n5] * 5:
+                n5 += 1
+            if new > last:
+                i += 1
+                last = new
+                ugly.append(last)
 
-                if i * 5 < 1691:
-                    nums[i * 5] = 1
+        return last
 
-                cnt += 1
-                print(cnt, i)
-
-        return i
 
 sol = Solution()
-ret = sol.nthUglyNumber(103)
+ret = sol.nthUglyNumber(1691234)
 print(ret)
